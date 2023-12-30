@@ -118,8 +118,9 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
             X_hat[test_indices] = X_k_hat[test_indices]
             fold_no += 1
 
-        np.savetxt('X_hat.txt', X_hat)
         log_file.close() if args.log else None
+
+        return X_hat
 
 
     
