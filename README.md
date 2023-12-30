@@ -27,18 +27,21 @@ Default configuration:
 ```TMTF.py GPCR```
 
 Specify the model formulation (only applicable to DTINet) and the number of latent variables:
-
-```TMTF.py DTINET --form_no 3 --f_size 32```
+```
+TMTF.py DTINET --form_no 3 --f_size 32
+```
 
 Set the stopping criterion and learning rate:
-
-```TMTF.py E --epsilon 1e-5 --alpha 0.1```
+```
+TMTF.py E --epsilon 1e-5 --alpha 0.1
+```
 
 Log the optimization process:
+```
+TMTF.py NR --log
+```
 
-```TMTF.py NR --log```
-
-The output is the predictions matrix $\hat{X}$ saved in the same directory as the `TMTF.py` file.
+The output is the probabilistic predictions matrix $\hat{X}$ saved in the same directory as the `TMTF.py` file.
 
 
 ## Cite
