@@ -21,7 +21,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         proteins = head[1:]
         drugs = [row[0] for row in tail]
         X = np.array([list(map(int, row[1:])) for row in tail])
-        print('Drug-target Matrix: ', X.shape)
 
         '''
         Load target protein similaritiy matrices
@@ -32,7 +31,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         protein_interactions = np.array([list(map(int, row[1:])) for row in tail])
-        print('\nProtein-Protein Interaction Matrix: ', protein_interactions.shape)
 
         file = open('Data/DTINet dataset/Similarity_Matrix_Proteins.csv')
         csvreader = csv.reader(file)
@@ -40,7 +38,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         protein_sequence_sim = np.array([list(map(float, row[1:])) for row in tail])/100
-        print('Protein Sequence Similarity Matrix: ', protein_sequence_sim.shape)
 
         file = open('Data/DTINet dataset/protein_similarity_disease.csv')
         csvreader = csv.reader(file)
@@ -48,7 +45,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         protein_disease_sim = np.array([list(map(float, row[1:])) for row in tail])
-        print('Protein Disease Similarity Matrix: ', protein_disease_sim.shape)
 
         '''
         Load drug similaritiy matrices
@@ -59,7 +55,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         drug_structure_sim = np.array([list(map(float, row[1:])) for row in tail])
-        print('\nDrug Structure Similarity Matrix: ', drug_structure_sim.shape)
 
         file = open('Data/DTINet dataset/mat_drug_drug.csv')
         csvreader = csv.reader(file)
@@ -67,7 +62,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         drug_ineractions = np.array([list(map(int, row[1:])) for row in tail])
-        print('Drug-drug Interaction Matrix: ', drug_ineractions.shape)
 
         file = open('Data/DTINet dataset/drug_similarity_disease.csv')
         csvreader = csv.reader(file)
@@ -75,7 +69,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         drug_disease_sim = np.array([list(map(float, row[1:])) for row in tail])
-        print('Drug Disease Similarity Matrix: ', drug_disease_sim.shape)
 
         file = open('Data/DTINet dataset/drug_similarity_se.csv')
         csvreader = csv.reader(file)
@@ -83,7 +76,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = data[0]
         tail = data[1:]
         drug_se_sim = np.array([list(map(float, row[1:])) for row in tail])
-        print('Drug Side Effect Similarity Matrix: ', drug_se_sim.shape)
 
         '''
         Create tensors
@@ -91,14 +83,11 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         script_T = np.concatenate((np.expand_dims(protein_sequence_sim, axis=-1),
                                       np.expand_dims(protein_interactions, axis=-1),
                                       np.expand_dims(protein_disease_sim, axis=-1)), axis=-1)
-        print('\nProtein Similarity Tensor: ', script_T.shape)
 
         script_D = np.concatenate((np.expand_dims(drug_structure_sim, axis=-1),
                                       np.expand_dims(drug_ineractions, axis=-1),
                                       np.expand_dims(drug_disease_sim, axis=-1),
                                       np.expand_dims(drug_se_sim, axis=-1)), axis=-1)
-        print('\nDrug Similarity Tensor', script_D.shape)
-        print()
 
         '''
         Cross-validate and predict
@@ -143,7 +132,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = lines[0].split()
         tail = [line.split()[1:] for line in lines[1:]]
         X = np.array([list(map(int, row)) for row in tail])
-        print('Target-drug Matrix: ', X.shape)
 
         '''
         Load drug similarity matrix
@@ -153,7 +141,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = lines[0].split()
         tail = [line.split()[1:] for line in lines[1:]]
         drug_str_sim = np.array([list(map(float, row)) for row in tail])
-        print('Drug Structure Similarity Matrix: ', drug_str_sim.shape)
 
         '''
         Load target similarity matrix
@@ -163,7 +150,6 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
         head = lines[0].split()
         tail = [line.split()[1:] for line in lines[1:]]
         protein_seq_sim = np.array([list(map(float, row)) for row in tail])
-        print('Protein Sequence Similarity Matrix: ', protein_seq_sim.shape, '\n')
 
         '''
         Cross-validate and predict
