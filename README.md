@@ -19,12 +19,14 @@ This repository provides an implementation of the TMT factorization method. It i
 
 ## Execuation
 Get a full description of the arguments and options involved in the pipeline:
-
-```TMTF.py -help```
+```
+TMTF.py -help
+```
 ### Examples
 Default configuration:
-
-```TMTF.py GPCR```
+```
+TMTF.py GPCR
+```
 
 Specify the model formulation (only applicable to DTINet) and the number of latent variables:
 ```
@@ -45,4 +47,5 @@ The output is the probabilistic predictions matrix $\hat{X}$ saved in the same d
 
 
 ## Cite
-``````
+```
+```
