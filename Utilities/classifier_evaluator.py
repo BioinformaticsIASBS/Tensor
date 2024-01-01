@@ -5,8 +5,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 
 
-def evaluate(ground_truth: list[int], predictions: list[int],
-             prediction_scores: list[float]) -> list[float]:           
+def evaluate(ground_truth: list[int], predictions: list[int], prediction_scores: list[float]) -> list[float]:           
     accuracy = metrics.accuracy_score(ground_truth, predictions)
     precision = metrics.precision_score(ground_truth, predictions)
     recall = metrics.recall_score(ground_truth, predictions)
