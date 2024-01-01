@@ -189,9 +189,12 @@ def TMTF(args: argparse.Namespace) -> np.ndarray:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('dataset', type=str, choices=['DTINET', 'E', 'GPCR', 'IC', 'NR'], help='Data to train/test the model on')
-    parser.add_argument('--k', type=int, default=10, help='Number of folds in the k-fold cross-validation process')
-    parser.add_argument('--form_no', type=int, default=1, choices=range(1,5), help='Formulation of the model')
+    parser.add_argument('dataset', type=str, choices=['DTINET', 'E', 'GPCR', 'IC', 'NR'],
+                        help='Data to train/test the model on')
+    parser.add_argument('--k', type=int, default=10, help='Number of folds in the \
+                        k-fold cross-validation process')
+    parser.add_argument('--form_no', type=int, default=1, choices=range(1,5),
+                        help='Formulation of the model')
     parser.add_argument('--f_size', type=int, default=16, help='Number of latent variables')
     parser.add_argument('--alpha', type=float, default=0.01, help='Learning rate')
     parser.add_argument('--epsilon', type=float, default=1e-3, help='Stopping criterion')
@@ -199,7 +202,7 @@ if __name__ == "__main__":
                         help='Whether to compute similarity matrices or not (Set True at least once)')
     parser.add_argument('--log', action=argparse.BooleanOptionalAction, default=False,
                         help='Whether to log the optimization process')
-
     args = parser.parse_args()
+    
     X_hat = TMTF(args)
     np.savetxt('X_hat.txt', X_hat)
