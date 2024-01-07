@@ -1,6 +1,7 @@
 # A Comparative Analysis of Computational Drug Repurposing Approaches -- Proposing a Novel Tensor-Matrix-Tensor Factorization Method
 _by A. Zabihian, J. Asghari, M. Hooshmand, S. Gharaghani_
 ![TMTformuation](https://github.com/BioinformaticsIASBS/Tensor/assets/44480584/95ac4d24-cbd2-4a58-814b-8138546de82e)
+Gain access to the preprint version of the manuscript [here](https://www.researchsquare.com/article/rs-3816066/latest).
 
 ## Overview
 This repository provides an implementation of the TMT factorization method. It is organized as follows:
