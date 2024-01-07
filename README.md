@@ -13,7 +13,7 @@ This repository provides an implementation of the TMT factorization method. It i
         * Interaction and similarity matrices concerning four pharmaceutically useful drug–target classes: enzymes, ion channels, GPCRs, and nuclear receptors.
 * `Utilities/` contains:
     * A module that can compute similarity matrices,
-    * Two optimizers each developed based on its input data,
+    * Two optimizers, each developed based on its input data,
     * A module to help assess model performance.
 
 `TMTF.py` is essentially a pipeline that utilizes the data and the modules to find new DTIs.
