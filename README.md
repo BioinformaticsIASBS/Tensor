@@ -1,9 +1,10 @@
 # A Comparative Analysis of Computational Drug Repurposing Approaches -- Proposing a Novel Tensor-Matrix-Tensor Factorization Method
 _by A. Zabihian, J. Asghari, M. Hooshmand, S. Gharaghani_
-![TMTformuation](https://github.com/BioinformaticsIASBS/Tensor/assets/44480584/95ac4d24-cbd2-4a58-814b-8138546de82e)
+![TMT formulation](https://github.com/BioinformaticsIASBS/Tensor/assets/44480584/95ac4d24-cbd2-4a58-814b-8138546de82e)
 Gain access to the preprint version of the manuscript [here](https://www.researchsquare.com/article/rs-3816066/latest).
 
 ## Overview
+[comment]: <> (update sentence)
 This repository provides an implementation of the TMT factorization method. It is organized as follows:
 * `Data/` contains:
     * `DTINet dataset/`:
@@ -14,12 +15,22 @@ This repository provides an implementation of the TMT factorization method. It i
 * `Utilities/` contains:
     * A module that can compute similarity matrices,
     * Two optimizers each developed based on its input data,
-    * A module to help assess model performance. 
+    * A module to help assess model performance.
+    [comment]: <> (add ml utils)
 
-`TMTF.py` is essentially a pipeline that utilizes the data and the modules to find new DTIs.
+`TMTF.py` is essentially a pipeline that utilizes the data and the modules to find new DTIs.[comment]: <> (add ml desc)
+You can also find the implementations of the IEDTI and DEDTI models in this [repository](https://github.com/BioinformaticsIASBS/IEDTI-DEDTI).
 
+## Dependencies
+The experiments have been conducted under Python 3.11.4 with the following packages installed:
+* `numpy==1.24.3`
+* `scikit-learn==1.2.2`
+* `scipy==1.11.1`
+* `tensorflow==2.13.0`
+* `matplotlib==3.7.1`
 
 ## Execuation
+[comment]: <> (update names to address tmtf)
 Get a full description of the arguments and options involved in the pipeline:
 ```
 TMTF.py -h
@@ -46,6 +57,8 @@ TMTF.py NR --log
 ```
 
 The output of `TMTF.py` is the probabilistic predictions matrix $\hat{X}$ saved in the same directory as the file. Keep in mind that the TMT model predicts non-thresholded decision values. So to enable the computation of some of the metrics, at some point, these values should be converted into binary labels. To do this, you may take advantage of `Utilities/classifier_evaluator.py`.
+[comment]: <> (add ml exec examples)
+[comment]: <> (update line below to address classifier eval)
 Have a look at its different settings in detail:
 ```
 classifier_evaluator.py -h
