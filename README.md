@@ -17,13 +17,14 @@ This repository provides an implementation of the TMT factorization method. It i
     * A module to help assess model performance.
 
 `TMTF.py` is essentially a pipeline that utilizes the data and the modules to find new DTIs.
+
 You can also find the implementations of the IEDTI and DEDTI models in this [repository](https://github.com/BioinformaticsIASBS/IEDTI-DEDTI).
 
 ## Dependencies
-The experiments have been conducted under Python 3.11.4 with the following packages installed:
+All the experiments have been conducted under Python 3.11.4 with the following packages installed:
 * `numpy==1.24.3`
-* `scikit-learn==1.2.2`
 * `scipy==1.11.1`
+* `scikit-learn==1.2.2`
 * `tensorflow==2.13.0`
 * `matplotlib==3.7.1`
 
@@ -54,6 +55,7 @@ TMTF.py NR --log
 ```
 
 The output of `TMTF.py` is the probabilistic predictions matrix $\hat{X}$ saved in the same directory as the file. Keep in mind that the TMT model predicts non-thresholded decision values. So to enable the computation of some of the metrics, at some point, these values should be converted into binary labels. To do this, you may take advantage of `Utilities/classifier_evaluator.py`.
+
 Have a look at its different settings in detail:
 ```
 classifier_evaluator.py -h
