@@ -54,7 +54,7 @@ Log the optimization process:
 TMTF.py NR --log
 ```
 
-The output of `TMTF.py` is the probabilistic predictions matrix $\hat{X}$ saved in the same directory as the file. Keep in mind that the TMT model predicts non-thresholded decision values. So to enable the computation of some of the metrics, at some point, these values should be converted into binary labels. To do this, you may take advantage of `Utilities/classifier_evaluator.py`.
+The output of `TMTF.py` is the probabilistic predictions matrix $\hat{X}$ saved in `Results/TMTF/`. Keep in mind that the TMT model predicts non-thresholded decision values. So to enable the computation of some of the metrics, at some point, these values should be converted into binary labels. To do this, you may take advantage of `Utilities/classifier_evaluator.py`.
 
 Have a look at its different settings in detail:
 ```
@@ -76,7 +76,7 @@ Plot ROC/PR curves:
 classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" "../X_hat.txt" --action pr
 ```
 
-You may find the computed metrics in the same path as the `classifier_evaluator.py` file.
+You may find the computed metrics in the same path as the $\hat{y}$.
 
 
 
