@@ -14,7 +14,7 @@ from Utilities import (
 )
 
 
-def ML(args: argparse.Namespace) -> np.ndarray:
+def ML(args: argparse.Namespace) -> None:
     if args.comp_sim_mats and args.dataset == "DTINET":
         compute_similarity_matrices.save_to_file()
     if args.comp_embs:
