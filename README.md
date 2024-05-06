@@ -1,7 +1,7 @@
 # A Comparative Analysis of Computational Drug Repurposing Approaches -- Proposing a Novel Tensor-Matrix-Tensor Factorization Method
 _by A. Zabihian, J. Asghari, M. Hooshmand, S. Gharaghani_
 ![TMT formulation](https://github.com/BioinformaticsIASBS/Tensor/assets/44480584/95ac4d24-cbd2-4a58-814b-8138546de82e)
-Gain access to the preprint version of the manuscript [here](https://www.researchsquare.com/article/rs-3816066/latest).
+Gain access to the manuscript [here](https://link.springer.com/article/10.1007/s11030-024-10851-7).
 
 ## Overview
 This repository provides an implementation of the TMT factorization method. It is organized as follows:
@@ -14,21 +14,18 @@ This repository provides an implementation of the TMT factorization method. It i
 * `Utilities/` contains:
     * A module that can compute similarity matrices,
     * Two optimizers, each developed based on its input data,
+    * Two modules to compute embeddings and positive-to-negative samplings of the data,
     * A module to help assess model performance.
 
-`TMTF.py` is essentially a pipeline that utilizes the data and the modules to find new DTIs.
+`TMTF.py` and `ML.py` are essentially pipelines that utilize the data and the modules to find new DTIs.
 
 You can also find the implementations of the IEDTI and DEDTI models in this [repository](https://github.com/BioinformaticsIASBS/IEDTI-DEDTI).
 
-## Dependencies
-All the experiments have been conducted under Python 3.11.4 with the following packages installed:
-* `numpy==1.24.3`
-* `scipy==1.11.1`
-* `scikit-learn==1.2.2`
-* `tensorflow==2.13.0`
-* `matplotlib==3.7.1`
-
-## Execuation
+## Requirements
+```
+pip3 install -r requirements.txt
+```
+## Usage
 Get a full description of the arguments and options involved in the pipeline:
 ```
 TMTF.py -h
@@ -83,4 +80,13 @@ You may find the computed metrics in the same path as the $\hat{y}$.
 
 ## Citation
 ```
+@article{
+zabihian2024comparative,
+title={A comparative analysis of computational drug repurposing approaches: proposing a novel tensor-matrix-tensor factorization method},
+author={Zabihian, Arash and Asghari, Javad and Hooshmand, Mohsen and Gharaghani, Sajjad},
+journal={Molecular Diversity},
+pages={1--20},
+year={2024},
+publisher={Springer}
+}
 ```
