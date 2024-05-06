@@ -58,12 +58,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("y_path", type=str, help="Path to the ground truth file")
     parser.add_argument("y_hat_path", type=str, help="Path to the predictions file")
-    parser.add_argument(
-        "--probabilistic",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Whether predictions are probabilistic",
-    )
+    parser.add_argument("prob_y_hat_path", type=str, help="Path to the prediction scores file")
     parser.add_argument(
         "--action",
         type=str,
@@ -80,12 +75,14 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if args.y_path[-3:] == "txt":
+    if args.y_path[-3:] == "txt" and "Gold standard dataset" in args.y_path:
         file = open(args.y_path)
         lines = [line for line in file]
         head = lines[0].split()
         tail = [line.split()[1:] for line in lines[1:]]
         y = np.array([list(map(int, row)) for row in tail]).flatten()
+    elif args.y_path[-3:] == "txt" and not ("Gold standard dataset" in args.y_path):
+        y = np.loadtxt(args.y_path).flatten()
     else:
         file = open(args.y_path)
         csvreader = csv.reader(file)
@@ -95,15 +92,17 @@ if __name__ == "__main__":
         drugs = [row[0] for row in tail]
         y = np.array([list(map(int, row[1:])) for row in tail]).flatten()
 
-    y_hat = np.loadtxt(args.y_hat_path).flatten()
-    if args.probabilistic:
-        threshold = threshold_tuning(y, y_hat, args.tht_mode)
-        predictions = [0 if score < threshold else 1 for score in y_hat]
+    prob_y_hat = np.loadtxt(args.prob_y_hat_path).flatten()
+    if args.y_hat_path != "None":
+        y_hat = np.loadtxt(args.y_hat_path).flatten()
+    else:
+        threshold = threshold_tuning(y, prob_y_hat, args.tht_mode)
+        y_hat = [0 if score < threshold else 1 for score in prob_y_hat]
 
     if args.action == "eval":
-        acc, bacc, pre, rec, spe, f1, MCC, AUC, AUPR = evaluate(y, predictions, y_hat)
-        output_path = "/".join(args.y_hat_path.split("/")[:-1]) + "/"
-        output_file = open(output_path + "evaluation_results.txt", "w")
+        acc, bacc, pre, rec, spe, f1, MCC, AUC, AUPR = evaluate(y, y_hat, prob_y_hat)
+        output_path = "/".join(args.prob_y_hat_path.split("/")[:-1])
+        output_file = open(output_path + "/evaluation.txt", "w")
         output_file.write("Accuracy: {}".format(acc))
         output_file.write("\nBalanced Accuracy: {}".format(bacc))
         output_file.write("\nPrecision: {}".format(pre))
@@ -116,8 +115,9 @@ if __name__ == "__main__":
         output_file.close()
 
     elif args.action == "tht":
+        threshold = threshold_tuning(y, prob_y_hat, args.tht_mode)
         print(threshold)
 
     else:
         exec("curve = {}_curve".format(args.action.upper()))
-        curve(y, y_hat)
+        curve(y, prob_y_hat)

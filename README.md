@@ -25,11 +25,13 @@ You can also find the implementations of the IEDTI and DEDTI models in this [rep
 ```
 pip3 install -r requirements.txt
 ```
-## Usage
+
+## TMTF Pipeline Usage
 Get a full description of the arguments and options involved in the pipeline:
 ```
 TMTF.py -h
 ```
+
 ### Examples
 Choose a dataset:
 ```
@@ -53,29 +55,58 @@ TMTF.py NR --log
 
 The output of `TMTF.py` is the probabilistic predictions matrix $\hat{X}$ saved in `Results/TMTF/`. Keep in mind that the TMT model predicts non-thresholded decision values. So to enable the computation of some of the metrics, at some point, these values should be converted into binary labels. To do this, you may take advantage of `Utilities/classifier_evaluator.py`.
 
+## ML Pipeline Usage
+See the full list of options:
+```
+ML.py -h
+```
+
+### Examples
+Choose a dataset and a ratio of negative sampling:
+```
+ML.py DTINET --ratio 5
+```
+
+Configure the pipeline to compute embeddings and ratio the data (necessary for first-time usage):
+```
+ML.py DTINET --ratio 5 --comp_embs --comp_ratioed_data
+```
+
+Select an algorithm and specify its parameters:
+```
+ML.py DTINET --ratio 5 --algorithm SVM --kernel rbf --C 10
+```
+
+With embeddings calculated and ratioed, train and test a model in its default configuration and compute its average score through all folds:
+```
+ML.py NR --ratio all --num_folds 5 --algorithm RF --oa_eval 
+```
+
+`ML.py` for each fold saves $y$, $\hat{y}$, and probabilistic $\hat{y}$ in `Results/ML/`. You can use the evaluator module to compute the score of each fold. As mentioned above, use `--oa_eval` for an overall evaluation of the model across all folds.
+
+## Model Evaluator Usage
 Have a look at its different settings in detail:
 ```
 classifier_evaluator.py -h
 ```
+
 ### Examples
-Specify the path of $y$, e.g., `Data/Gold standard dataset/nr_admat_dgc.txt`, and $\hat{y}$:
+Specify the path of $y$, $\hat{y}$, and probabilistic $\hat{y}$:
 ```
-classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" "../X_hat.txt"
+classifier_evaluator.py "../Results/ML/RF_NR_1-to-1_fold1_y.txt" "../Results/ML/RF_NR_1-to-1_fold1_y-hat.txt" "../Results/ML/RF_NR_1-to-1_fold1_probabilistic-y-hat.txt"
 ```
 
-Change the method of threshold tuning and see the optimal decision threshold:
+In case the model only predicts a probabilistic $\hat{y}$, e.g., TMTF, specify $\hat{y}$ path as `None`:
 ```
-classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" "../X_hat.txt" --action tht --tht_mode roc
+classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" None "../Results/TMTF/X_hat.txt"
 ```
 
 Plot ROC/PR curves:
 ```
-classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" "../X_hat.txt" --action pr
+classifier_evaluator.py "../Data/Gold standard dataset/nr_admat_dgc.txt" None "../Results/TMTF/X_hat.txt" --action pr
 ```
 
-You may find the computed metrics in the same path as the $\hat{y}$.
-
-
+You may find the computed scores in the same path as the probabilistic $\hat{y}$.
 
 
 ## Citation
