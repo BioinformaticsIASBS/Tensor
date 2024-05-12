@@ -27,7 +27,7 @@ pip3 install -r requirements.txt
 ```
 
 ## TMTF Pipeline Usage
-Get a full description of the arguments and options involved in the pipeline:
+Get the full description of the arguments and options involved in the pipeline:
 ```
 python3 TMTF.py -h
 ```
